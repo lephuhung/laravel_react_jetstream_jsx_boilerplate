@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DatadocController;
+use Dflydev\DotAccessData\Data;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum', 'token'])->get('/user', function (Request $request) {
+    $user = $request->user();
+    return $request->ip();
 });
+Route::middleware(['auth:sanctum'])->resource('/datadoc', DatadocController::class);
