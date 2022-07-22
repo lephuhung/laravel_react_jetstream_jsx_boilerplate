@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\datadoc;
+use App\Models\post;
 
-class DatadocController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class DatadocController extends Controller
      */
     public function index()
     {
-        $datadoc= datadoc::paginate(15);
-        return response()->json(['datadoc' => $datadoc],200);
+        $post =post::all();
+        return response()->json(['data' => $post],200);
     }
 
     /**
@@ -26,9 +26,13 @@ class DatadocController extends Controller
      */
     public function store(Request $request)
     {
-        $datadoc= datadoc::create($request->all());
-        $datadoc->save();
-        return response()->json(['datadoc' => $datadoc],200);
+        try {
+            $post = post::create($request->all());
+            $post->save();
+            return response()->json(['post' => $post], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['Error' => $e->getMessage()], 200);
+        }
     }
 
     /**
@@ -39,9 +43,7 @@ class DatadocController extends Controller
      */
     public function show($id)
     {
-        $datadoc = datadoc::find($id);
-        return response()->json(['datadoc' => $datadoc],200);
-
+        //
     }
 
     /**

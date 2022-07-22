@@ -3,7 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatadocController;
-use Dflydev\DotAccessData\Data;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\CommnentController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +23,11 @@ Route::middleware(['auth:sanctum', 'token'])->get('/user', function (Request $re
     $user = $request->user();
     return $request->ip();
 });
-Route::middleware(['auth:sanctum'])->resource('/datadoc', DatadocController::class);
+// Route::middleware()->group(function () {
+    Route::resource('/datadoc', DatadocController::class);
+    Route::resource('/post',    PostController::class); 
+    Route::resource('/page',    PageController::class); 
+    Route::resource('/comment',    CommnentController::class); 
+    Route::get('/elasticsearch', [SearchController::class,'ElasticInfo']);
+    Route::get('/search', [SearchController::class,'ElasticSearch']);
+// });

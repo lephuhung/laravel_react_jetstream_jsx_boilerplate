@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('sapo');
             $table->string('content');
             $table->string('feature_image');
-            $table->dataTime('created_date');
+            $table->dateTime('created_date');
         });
     }
 
