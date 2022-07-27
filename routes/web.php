@@ -3,7 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use App\Models\datadoc;
+use App\Http\Controllers\DatadocController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,9 +33,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::get('/datadoc',function (){
-        return Inertia::render('Datadoc');
-    })->name('datadoc');
+    Route::get('/datadoc',[DatadocController::class, 'index'])->name('datadoc');
     Route::get('/facebook',function (){
         return Inertia::render('Facebook');
     })->name('facebook');

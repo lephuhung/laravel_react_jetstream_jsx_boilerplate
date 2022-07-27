@@ -12,9 +12,9 @@ class SearchController extends Controller
 
     public function ElasticInfo()
     {
-        
+        $host=env('DB_HOST');
         $client = ClientBuilder::create()
-            ->setHosts(['http://104.251.217.92:9200'])
+            ->setHosts(["{$host}:9200"])
             ->build();
 
         // Info API
@@ -24,9 +24,9 @@ class SearchController extends Controller
     }
     public function ElasticSearch(Request $request){
         $search= $request->get('search');
-        
+        $host=env('DB_HOST');
         $client = ClientBuilder::create()
-            ->setHosts(['http://104.251.217.92:9200'])
+            ->setHosts(["{$host}:9200"])
             ->build();
         $params = [
             'index' => 'datadoc_index',

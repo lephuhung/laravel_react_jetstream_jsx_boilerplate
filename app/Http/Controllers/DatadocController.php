@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\datadoc;
-
+use Inertia\Inertia;
 class DatadocController extends Controller
 {
     /**
@@ -14,8 +14,10 @@ class DatadocController extends Controller
      */
     public function index()
     {
-        $datadoc= datadoc::paginate(15);
-        return response()->json(['datadoc' => $datadoc],200);
+        return Inertia::render('Datadoc', [
+            'datadoc'=>datadoc::paginate(15)
+        ]);
+      
     }
 
     /**
