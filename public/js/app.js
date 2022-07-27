@@ -43940,6 +43940,30 @@ var map = {
 		"./resources/js/Pages/Dashboard.jsx",
 		"resources_js_Pages_Dashboard_jsx"
 	],
+	"./Datadoc": [
+		"./resources/js/Pages/Datadoc.jsx",
+		"resources_js_Pages_Datadoc_jsx"
+	],
+	"./Datadoc.jsx": [
+		"./resources/js/Pages/Datadoc.jsx",
+		"resources_js_Pages_Datadoc_jsx"
+	],
+	"./Facebook": [
+		"./resources/js/Pages/Facebook.jsx",
+		"resources_js_Pages_Facebook_jsx"
+	],
+	"./Facebook.jsx": [
+		"./resources/js/Pages/Facebook.jsx",
+		"resources_js_Pages_Facebook_jsx"
+	],
+	"./Host": [
+		"./resources/js/Pages/Host.jsx",
+		"resources_js_Pages_Host_jsx"
+	],
+	"./Host.jsx": [
+		"./resources/js/Pages/Host.jsx",
+		"resources_js_Pages_Host_jsx"
+	],
 	"./PrivacyPolicy": [
 		"./resources/js/Pages/PrivacyPolicy.jsx",
 		"resources_js_Pages_PrivacyPolicy_jsx"
@@ -44209,7 +44233,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_Pages_API_ApiTokenManager_jsx":1,"resources_js_Pages_API_Index_jsx":1,"resources_js_Pages_Auth_ConfirmPassword_jsx":1,"resources_js_Pages_Auth_ForgotPassword_jsx":1,"resources_js_Pages_Auth_Login_jsx":1,"resources_js_Pages_Auth_Register_jsx":1,"resources_js_Pages_Auth_ResetPassword_jsx":1,"resources_js_Pages_Auth_TwoFactorChallenge_jsx":1,"resources_js_Pages_Auth_VerifyEmail_jsx":1,"resources_js_Pages_Dashboard_jsx":1,"resources_js_Pages_PrivacyPolicy_jsx":1,"resources_js_Pages_Profile_DeleteUserForm_jsx":1,"resources_js_Pages_Profile_LogoutOtherBrowserSessionsForm_jsx":1,"resources_js_Pages_Profile_Show_jsx":1,"resources_js_Pages_Profile_TwoFactorAuthenticationForm_jsx":1,"resources_js_Pages_Profile_UpdatePasswordForm_jsx":1,"resources_js_Pages_Profile_UpdateProfileInformationForm_jsx":1,"resources_js_Pages_Teams_Create_jsx":1,"resources_js_Pages_Teams_CreateTeamForm_jsx":1,"resources_js_Pages_Teams_DeleteTeamForm_jsx":1,"resources_js_Pages_Teams_Show_jsx":1,"resources_js_Pages_Teams_TeamMemberManager_jsx":1,"resources_js_Pages_Teams_UpdateTeamNameForm_jsx":1,"resources_js_Pages_TermsOfService_jsx":1,"resources_js_Pages_Welcome_jsx":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_Pages_API_ApiTokenManager_jsx":1,"resources_js_Pages_API_Index_jsx":1,"resources_js_Pages_Auth_ConfirmPassword_jsx":1,"resources_js_Pages_Auth_ForgotPassword_jsx":1,"resources_js_Pages_Auth_Login_jsx":1,"resources_js_Pages_Auth_Register_jsx":1,"resources_js_Pages_Auth_ResetPassword_jsx":1,"resources_js_Pages_Auth_TwoFactorChallenge_jsx":1,"resources_js_Pages_Auth_VerifyEmail_jsx":1,"resources_js_Pages_Dashboard_jsx":1,"resources_js_Pages_Datadoc_jsx":1,"resources_js_Pages_Facebook_jsx":1,"resources_js_Pages_Host_jsx":1,"resources_js_Pages_PrivacyPolicy_jsx":1,"resources_js_Pages_Profile_DeleteUserForm_jsx":1,"resources_js_Pages_Profile_LogoutOtherBrowserSessionsForm_jsx":1,"resources_js_Pages_Profile_Show_jsx":1,"resources_js_Pages_Profile_TwoFactorAuthenticationForm_jsx":1,"resources_js_Pages_Profile_UpdatePasswordForm_jsx":1,"resources_js_Pages_Profile_UpdateProfileInformationForm_jsx":1,"resources_js_Pages_Teams_Create_jsx":1,"resources_js_Pages_Teams_CreateTeamForm_jsx":1,"resources_js_Pages_Teams_DeleteTeamForm_jsx":1,"resources_js_Pages_Teams_Show_jsx":1,"resources_js_Pages_Teams_TeamMemberManager_jsx":1,"resources_js_Pages_Teams_UpdateTeamNameForm_jsx":1,"resources_js_Pages_TermsOfService_jsx":1,"resources_js_Pages_Welcome_jsx":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

@@ -47,6 +47,15 @@ const AppLayout = (props) => {
                                     <NavLink active={route().current('dashboard')} href={route('dashboard')}>
                                         Dashboard
                                     </NavLink>
+                                    <NavLink active={route().current('host')} href={route('host')}>
+                                        Host
+                                    </NavLink>
+                                    <NavLink active={route().current('datadoc')} href={route('datadoc')}>
+                                        Dữ liệu báo
+                                    </NavLink>
+                                    <NavLink active={route().current('facebook')} href={route('facebook')}>
+                                        Dữ liệu Facebook
+                                    </NavLink>
                                 </div>
                             </div>
 
