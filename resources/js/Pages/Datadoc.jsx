@@ -1,8 +1,18 @@
 import AppLayout from "@/Layouts/AppLayout";
-import React, { useState } from "react";
-import { Table, Input, Button, AutoComplete, Select, Typography, Col, Row } from "antd";
+import React, { useState, useRef, useEffect } from "react";
+import {
+    Table,
+    Input,
+    Button,
+    AutoComplete,
+    Select,
+    Typography,
+    Col,
+    Row,
+    message
+} from "antd";
 import axios from "axios";
-
+import { UserAddOutlined } from "@ant-design/icons";
 const columns = [
     {
         title: "Tiêu đề",
@@ -22,36 +32,38 @@ const columns = [
 ];
 
 const Dashboard = ({ datadoc }) => {
+    const timeoutRef = useRef(null);
     const { Option } = Select;
     const { Text, Link } = Typography;
     const [options, setOptions] = useState([]);
-    const [datasearch, setdatasearch] = useState('ß');
+    const [postsearch, setpostsearch] = useState("");
     const [search, setsearch] = useState([]);
     const [time, settime] = useState(0);
-    async function onSearch() {
+    async function onSearch(value) {
+        setsearch([]);
         await axios
-            .post("/api/search", { search: datasearch })
+            .post("/api/search", { search: value})
             .then((res) => {
-                settime(res.data.took);
-                setsearch(res.data.documents);
+                setsearch(res.data.data.documents);
+                console.log(res.data)
+                message.info(`Kết quả tìm kiếm trong ${res.data.data.took} s`);
             })
             .catch((err) => {});
-        ß;
+        ;
     }
-    function OptionView() {
-        return search.map((item) => {
-            return <Option key={item}>{item}</Option>;
-        });
-    }
-    const handleSearch = (value) => {
-        setdatasearch(value);
-        onSearch();
-    };
 
     const onSelect = (value) => {
         console.log("onSelect", value);
     };
-
+    useEffect(() => {
+        timeoutRef.current = setTimeout(() => {
+            timeoutRef.current = null;
+            postsearch !== "" ? onSearch(postsearch) : setsearch([]);
+        }, 500);
+        return () => {
+            clearTimeout(timeoutRef.current); // clear timeout
+        };
+    }, [postsearch]);
     return (
         <AppLayout
             header={
@@ -63,28 +75,38 @@ const Dashboard = ({ datadoc }) => {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <Row padding={5}>
-                    <Col
-                        span={12}
-                        offset={3}
-                        style={{ display: "flex", justify: "center" }}
-                    >
-                        <AutoComplete
-                            style={{ width: 400 }}
-                            placeholder="Nhâp thông tin khách hàng"
-                            onSearch={(value)=>setdatasearch(value)}
-                        >
-                            {search.map((item, index) => {
-                                return (
-                                    <Option key={index}>
-                                        {/* <Link
-                                            href={`/khach-hang/${item.id}`}
-                                        >{`${item.} ${item.sdt}`}</Link> */}
-                                    </Option>
-                                );
-                            })}
-                        </AutoComplete>
-                        </Col>
+                        <Row padding={5}>
+                            <Col
+                                span={12}
+                                offset={3}
+                                style={{ display: "flex", justify: "center" }}
+                            >
+                                <AutoComplete
+                                    value={postsearch}
+                                    style={{ width: 400 }}
+                                    placeholder="Nhâp thông tin khách hàng"
+                                    onChange={(e) => setpostsearch(e)}
+                                >
+                                    {search.map((item, index) => {
+                                        return (
+                                                <Option key={index} value={postsearch}>
+
+                                                    <Link href={item._source.href} target="_blank" rel="noopener noreferrer" key={index}>{item._source.topic}</Link>
+                                                </Option>
+                        
+                                        );
+                                    })}
+                                </AutoComplete>
+                            </Col>
+                            {/* <Col span={6} offset={3}>
+                                <Button
+                                    type="primary"
+                                    icon={<UserAddOutlined />}
+                                    onClick={() => onSearch()}
+                                >
+                                    Tìm kiếm
+                                </Button>
+                            </Col> */}
                         </Row>
                         <br />
                         <Table
