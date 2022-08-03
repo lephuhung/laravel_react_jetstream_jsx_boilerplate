@@ -19078,7 +19078,7 @@ var Dashboard = function Dashboard(_ref) {
               }).then(function (res) {
                 setsearch(res.data.data.documents);
                 console.log(res.data);
-                antd__WEBPACK_IMPORTED_MODULE_6__["default"].info("K\u1EBFt qu\u1EA3 t\xECm ki\u1EBFm trong ".concat(res.data.data.took));
+                antd__WEBPACK_IMPORTED_MODULE_6__["default"].info("K\u1EBFt qu\u1EA3 t\xECm ki\u1EBFm trong ".concat(res.data.data.took || 0, " s"));
               })["catch"](function (err) {});
 
             case 3:
@@ -19120,9 +19120,12 @@ var Dashboard = function Dashboard(_ref) {
           className: "bg-white overflow-hidden shadow-xl sm:rounded-lg",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             padding: 5,
+            style: {
+              padding: '10px'
+            },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               span: 12,
-              offset: 3,
+              offset: 8,
               style: {
                 display: "flex",
                 justify: "center"
@@ -19132,7 +19135,7 @@ var Dashboard = function Dashboard(_ref) {
                 style: {
                   width: 400
                 },
-                placeholder: "Nh\xE2p th\xF4ng tin kh\xE1ch h\xE0ng",
+                placeholder: "Nh\xE2p t\u1EEB kho\xE1 c\u1EA7n t\xECm ki\u1EBFm",
                 onChange: function onChange(e) {
                   return setpostsearch(e);
                 },
@@ -19149,7 +19152,10 @@ var Dashboard = function Dashboard(_ref) {
                 })
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Text, {
+            strong: true,
+            children: "Danh s\xE1ch b\xE0i vi\u1EBFt g\u1EA7n \u0111\xE2y"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
             dataSource: datadoc.data,
             columns: columns,
             rowKey: "article_id",

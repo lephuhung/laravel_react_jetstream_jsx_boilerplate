@@ -42,13 +42,13 @@ const Dashboard = ({ datadoc }) => {
     async function onSearch(value) {
         setsearch([]);
         await axios
-            .post("/api/search", { search: value})
+            .post("/api/search", { search: value })
             .then((res) => {
                 setsearch(res.data.data.documents);
                 console.log(res.data)
-                message.info(`Kết quả tìm kiếm trong ${res.data.data.took} s`);
+                message.info(`Kết quả tìm kiếm trong ${res.data.data.took || 0} s`);
             })
-            .catch((err) => {});
+            .catch((err) => { });
         ;
     }
 
@@ -75,25 +75,24 @@ const Dashboard = ({ datadoc }) => {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                        <Row padding={5}>
+                        <Row padding={5} style={{padding:'10px'}}>
                             <Col
                                 span={12}
-                                offset={3}
+                                offset={8}
                                 style={{ display: "flex", justify: "center" }}
                             >
                                 <AutoComplete
                                     value={postsearch}
                                     style={{ width: 400 }}
-                                    placeholder="Nhâp thông tin khách hàng"
+                                    placeholder="Nhâp từ khoá cần tìm kiếm"
                                     onChange={(e) => setpostsearch(e)}
                                 >
                                     {search.map((item, index) => {
                                         return (
-                                                <Option key={index} value={postsearch}>
+                                            <Option key={index} value={postsearch}>
+                                                <Link href={item._source.href} target="_blank" rel="noopener noreferrer" key={index}>{item._source.topic}</Link>
+                                            </Option>
 
-                                                    <Link href={item._source.href} target="_blank" rel="noopener noreferrer" key={index}>{item._source.topic}</Link>
-                                                </Option>
-                        
                                         );
                                     })}
                                 </AutoComplete>
@@ -109,6 +108,7 @@ const Dashboard = ({ datadoc }) => {
                             </Col> */}
                         </Row>
                         <br />
+                        <Text strong>Danh sách bài viết gần đây</Text>
                         <Table
                             dataSource={datadoc.data}
                             columns={columns}
