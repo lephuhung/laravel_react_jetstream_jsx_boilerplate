@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\datadoc;
 use App\Http\Controllers\DatadocController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,9 +35,7 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::get('/datadoc',[DatadocController::class, 'index'])->name('datadoc');
-    Route::get('/facebook',function (){
-        return Inertia::render('Facebook');
-    })->name('facebook');
+    Route::get('/facebook',[PostController::class, 'index'])->name('facebook');
     Route::get('/host',function (){
         return Inertia::render('Host');
     })->name('host');

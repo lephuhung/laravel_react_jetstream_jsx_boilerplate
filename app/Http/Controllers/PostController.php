@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use App\Models\post;
 
 class PostController extends Controller
@@ -14,8 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post =post::all();
-        return response()->json(['data' => $post],200);
+        return Inertia::render('Facebook', [
+            'post'=>post::paginate(15)
+        ]);
     }
 
     /**

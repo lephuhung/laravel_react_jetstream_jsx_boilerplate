@@ -72,10 +72,11 @@ const Dashboard = ({ datadoc }) => {
                 </h2>
             }
         >
-            <div className="py-12">
+            <div className="py-1">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                        <Row padding={5} style={{padding:'10px'}}>
+
+                        <Row padding={5} style={{ padding: '10px' }}>
                             <Col
                                 span={12}
                                 offset={8}
@@ -107,6 +108,15 @@ const Dashboard = ({ datadoc }) => {
                                 </Button>
                             </Col> */}
                         </Row>
+                        <br />
+
+                    </div>
+                </div>
+            </div>
+            <div className="py-12">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+
                         <br />
                         <Text strong>Danh sách bài viết gần đây</Text>
                         <Table
