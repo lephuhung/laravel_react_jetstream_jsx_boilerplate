@@ -29,5 +29,6 @@ Route::middleware(['auth:sanctum', 'token'])->get('/user', function (Request $re
     Route::resource('/page',    PageController::class); 
     Route::resource('/comment',    CommnentController::class); 
     Route::get('/elasticsearch', [SearchController::class,'ElasticInfo']);
-    Route::post('/search', [SearchController::class,'ElasticSearch']);
+    Route::post('/search', [SearchController::class,'ElasticSearchDataDoc']);
+    Route::post('/searchfb', [SearchController::class,'ElasticSearchFacebook']);
 // });

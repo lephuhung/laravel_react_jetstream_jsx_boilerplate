@@ -12,7 +12,7 @@ class SearchController extends Controller
 
     public function ElasticInfo()
     {
-        $host=env('DB_HOST');
+        $host = env('DB_HOST');
         $client = ClientBuilder::create()
             ->setHosts(["{$host}:9200"])
             ->build();
@@ -22,9 +22,10 @@ class SearchController extends Controller
         echo $response['version']['number'];
         //return response()->json(['data' => json_encode($response)],200);
     }
-    public function ElasticSearch(Request $request){
-        $search= $request->get('search');
-        $host=env('DB_HOST');
+    public function ElasticSearchDataDoc(Request $request)
+    {
+        $search = $request->get('search');
+        $host = env('DB_HOST');
         $client = ClientBuilder::create()
             ->setHosts(["{$host}:9200"])
             ->build();
@@ -32,17 +33,42 @@ class SearchController extends Controller
             'index' => 'datadoc_index',
             'body'  => [
                 'query' => [
-                    'match' => [
-                        'sapo' => $search,
+                    'multi_match' => [
+                        'query' => $search,
+                        'fields' => ['sapo', 'content']
                     ]
                 ]
             ]
         ];
         $response = $client->search($params);
-        return response()->json(['data'=>[
-            'total'=>$response['hits']['total']['value'],
+        return response()->json(['data' => [
+            'total' => $response['hits']['total']['value'],
             'took' => $response['hits']['max_score'],
             'documents' => $response['hits']['hits']
-        ]],200);
+        ]], 200);
+    }
+    public function ElasticSearchFacebook(Request $request)
+    {
+        $search = $request->get('search');
+        $host = env('DB_HOST');
+        $client = ClientBuilder::create()
+            ->setHosts(["{$host}:9200"])
+            ->build();
+        $params = [
+            'index' => ['post_index', 'comment_index'],
+            'body'  => [
+                'query' => [
+                    'match' => [
+                        'content' => $search,  
+                    ]
+                ]
+            ]
+        ];
+        $response = $client->search($params);
+        return response()->json(['data' => [
+            'total' => $response['hits']['total']['value'],
+            'took' => $response['hits']['max_score'],
+            'documents' => $response['hits']['hits']
+        ]], 200);
     }
 }
