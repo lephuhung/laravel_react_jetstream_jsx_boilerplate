@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class post extends Model
 {
     use HasFactory;
-    protected $table='post';
+    protected $table='facebook_post';
     protected $primaryKey='id_post';
     protected $fillable=['id_fb_post','publish_time', 'content'];
     public $timestamps = false;

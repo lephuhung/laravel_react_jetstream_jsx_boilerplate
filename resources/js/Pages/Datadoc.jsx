@@ -9,7 +9,8 @@ import {
     Typography,
     Col,
     Row,
-    message
+    message,
+    Space
 } from "antd";
 import axios from "axios";
 import { UserAddOutlined } from "@ant-design/icons";
@@ -29,12 +30,18 @@ const columns = [
         dataIndex: "newspaper",
         key: "newspaper",
     },
+    {
+        title: "Chỉ mục/Tag",
+        dataIndex: "tags",
+        key: "tag"
+
+    }
 ];
 
 const Dashboard = ({ datadoc }) => {
     const timeoutRef = useRef(null);
     const { Option } = Select;
-    const { Text, Link } = Typography;
+    const { Text, Title, Link } = Typography;
     const [options, setOptions] = useState([]);
     const [postsearch, setpostsearch] = useState("");
     const [search, setsearch] = useState([]);
@@ -48,7 +55,9 @@ const Dashboard = ({ datadoc }) => {
                 console.log(res.data)
                 message.info(`Kết quả tìm kiếm trong ${res.data.data.took || 0} s`);
             })
-            .catch((err) => { });
+            .catch((err) => { 
+                message.error('Không kết nối được máy chủ Elastic');
+            });
         ;
     }
 
@@ -72,11 +81,10 @@ const Dashboard = ({ datadoc }) => {
                 </h2>
             }
         >
-            <div className="py-1">
+            <div className="py-12" >
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-
-                        <Row padding={5} style={{ padding: '10px' }}>
+                        <Row padding={5} style={{ paddingTop: '20px' }}>
                             <Col
                                 span={12}
                                 offset={8}
@@ -84,7 +92,7 @@ const Dashboard = ({ datadoc }) => {
                             >
                                 <AutoComplete
                                     value={postsearch}
-                                    style={{ width: 400 }}
+                                    style={{ width: 400, borderColor: "black" }}
                                     placeholder="Nhâp từ khoá cần tìm kiếm"
                                     onChange={(e) => setpostsearch(e)}
                                 >
@@ -98,33 +106,18 @@ const Dashboard = ({ datadoc }) => {
                                     })}
                                 </AutoComplete>
                             </Col>
-                            {/* <Col span={6} offset={3}>
-                                <Button
-                                    type="primary"
-                                    icon={<UserAddOutlined />}
-                                    onClick={() => onSearch()}
-                                >
-                                    Tìm kiếm
-                                </Button>
-                            </Col> */}
                         </Row>
-                        <br />
+                        <div style={{ padding: '10px' }} >
+                            <Space style={{ marginBottom: 16 }}> <Title strong level={4}>Danh sách bài viết gần đây</Title></Space>
+                            <Table
+                                dataSource={datadoc.data}
+                                columns={columns}
+                                rowKey="article_id"
+                                bordered
+                                
+                            />
 
-                    </div>
-                </div>
-            </div>
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-
-                        <br />
-                        <Text strong>Danh sách bài viết gần đây</Text>
-                        <Table
-                            dataSource={datadoc.data}
-                            columns={columns}
-                            rowKey="article_id"
-                            style={{ padding: "10px" }}
-                        />
+                        </div>
                     </div>
                 </div>
             </div>

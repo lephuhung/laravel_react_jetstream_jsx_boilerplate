@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('pgsql')->create('datadoc', function (Blueprint $table) {
+        Schema::create('datadoc', function (Blueprint $table) {
             $table->string('article_id')->primary();
             $table->string('href');
             $table->string('topic');
