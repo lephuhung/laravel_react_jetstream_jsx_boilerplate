@@ -10,10 +10,13 @@ import {
     Col,
     Row,
     message,
-    Space
+    Space,
+    Tag
 } from "antd";
 import axios from "axios";
 import { UserAddOutlined } from "@ant-design/icons";
+import _ from "lodash";
+const tags = ["thông tin", "giải trí", "thời sự", "thời tiết", "sự kiện"];
 const columns = [
     {
         title: "Tiêu đề",
@@ -29,11 +32,33 @@ const columns = [
         title: "Báo",
         dataIndex: "newspaper",
         key: "newspaper",
+        render: (text) => {
+            let color = text.length > 5 ? 'geekblue' : 'green';
+            return (
+                <Tag color={color} >
+                    {text.toUpperCase()}
+                </Tag>
+            )
+        }
     },
     {
         title: "Chỉ mục/Tag",
-        dataIndex: "tags",
-        key: "tag"
+        key: "tag",
+        render: (_, record, tags) => (
+            <>
+                {["thông tin", "giải trí", "thời sự", "thời tiết", "sự kiện"].map(tag => {
+                    let color = tag.length > 8 ? 'geekblue' : 'green';
+                    if (tag === 'giải trí') {
+                        color = 'volcano';
+                    }
+                    return (
+                        <Tag color={color} key={tag}>
+                            {tag}
+                        </Tag>
+                    )
+                })}
+            </>
+        )
 
     }
 ];
@@ -46,24 +71,35 @@ const Dashboard = ({ datadoc }) => {
     const [postsearch, setpostsearch] = useState("");
     const [search, setsearch] = useState([]);
     const [time, settime] = useState(0);
+    const [fetchdata, setfetchdata] = useState({
+        loading: false,
+        data: [],
+        total: 0
+    });
     async function onSearch(value) {
         setsearch([]);
         await axios
             .post("/api/search", { search: value })
             .then((res) => {
                 setsearch(res.data.data.documents);
-                console.log(res.data)
+                //thay thế hiện thị kết quả vào table
                 message.info(`Kết quả tìm kiếm trong ${res.data.data.took || 0} s`);
             })
-            .catch((err) => { 
+            .catch((err) => {
                 message.error('Không kết nối được máy chủ Elastic');
             });
         ;
     }
 
-    const onSelect = (value) => {
-        console.log("onSelect", value);
-    };
+    function fetchdatarequest(current, pageSize, total) {
+        if (current * pageSize < total + pageSize) {
+            setfetchdata({ ...fetchdata, loading: true });
+            axios.get(`http://localhost/api/datadocquery?page=${current}`).then((res) => {
+                setfetchdata({ ...fetchdata, data: res.data.data.data, loading: false });
+
+            }).catch(err => console.log(err));
+        }
+    }
     useEffect(() => {
         timeoutRef.current = setTimeout(() => {
             timeoutRef.current = null;
@@ -73,6 +109,12 @@ const Dashboard = ({ datadoc }) => {
             clearTimeout(timeoutRef.current); // clear timeout
         };
     }, [postsearch]);
+    useEffect(() => {
+        setfetchdata({ ...fetchdata, loading: true });
+        axios.get('http://localhost/api/datadocquery?page=1').then((res) => {
+            setfetchdata({ data: res.data.data.data, loading: false, total: res.data.data.total });
+        }).catch(err => console.log(err));
+    }, []);
     return (
         <AppLayout
             header={
@@ -110,11 +152,13 @@ const Dashboard = ({ datadoc }) => {
                         <div style={{ padding: '10px' }} >
                             <Space style={{ marginBottom: 16 }}> <Title strong level={4}>Danh sách bài viết gần đây</Title></Space>
                             <Table
-                                dataSource={datadoc.data}
+                                dataSource={fetchdata.data}
                                 columns={columns}
                                 rowKey="article_id"
                                 bordered
-                                
+                                pagination={{ pageSize: 15, total: fetchdata.total }}
+                                onChange={({ current, pageSize, total }) => fetchdatarequest(current, pageSize, total)}
+                                loading={fetchdata.loading}
                             />
 
                         </div>

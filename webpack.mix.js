@@ -18,7 +18,9 @@ mix.js('resources/js/app.js', 'public/js').react()
     .alias({
         '@': 'resources/js',
     });
-
+mix.browserSync({
+    proxy:'http://localhost:8080'
+});
 if (mix.inProduction()) {
     mix.version();
 }

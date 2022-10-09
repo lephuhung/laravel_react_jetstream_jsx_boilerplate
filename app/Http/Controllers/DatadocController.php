@@ -17,7 +17,7 @@ class DatadocController extends Controller
         return Inertia::render('Datadoc', [
             'datadoc'=>datadoc::paginate(15)
         ]);
-      
+        
     }
 
     /**

@@ -12,7 +12,7 @@ class SearchController extends Controller
 
     public function ElasticInfo()
     {
-        $host = env('DB_HOST');
+        $host = env('DB_ELASTIC');
         $client = ClientBuilder::create()
             ->setHosts(["{$host}:9200"])
             ->build();
@@ -25,7 +25,7 @@ class SearchController extends Controller
     public function ElasticSearchDataDoc(Request $request)
     {
         $search = $request->get('search');
-        $host = env('DB_HOST');
+        $host = env('DB_ELASTIC');
         $client = ClientBuilder::create()
             ->setHosts(["{$host}:9200"])
             ->build();
@@ -50,7 +50,7 @@ class SearchController extends Controller
     public function ElasticSearchFacebook(Request $request)
     {
         $search = $request->get('search');
-        $host = env('DB_HOST');
+        $host = env('DB_ELASTIC');
         $client = ClientBuilder::create()
             ->setHosts(["{$host}:9200"])
             ->build();

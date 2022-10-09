@@ -29,6 +29,8 @@
         "@heroicons/react": "^1.0.6",
         "@inertiajs/inertia-react": "^0.8.0",
         "antd": "^4.22.2",
+        "browser-sync": "^2.27.10",
+        "browser-sync-webpack-plugin": "^2.3.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     }

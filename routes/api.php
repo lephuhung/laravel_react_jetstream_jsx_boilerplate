@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\CommnentController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ApiRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,5 @@ Route::middleware(['auth:sanctum', 'token'])->get('/user', function (Request $re
     Route::get('/elasticsearch', [SearchController::class,'ElasticInfo']);
     Route::post('/search', [SearchController::class,'ElasticSearchDataDoc']);
     Route::post('/searchfb', [SearchController::class,'ElasticSearchFacebook']);
+    Route::get('/datadocquery', [ApiRequestController::class,'datadocquerycontroller']); 
 // });
