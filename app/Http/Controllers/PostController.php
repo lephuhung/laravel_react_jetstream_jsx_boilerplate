@@ -15,9 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Facebook', [
-            'post'=>post::paginate(15)
-        ]);
+        // return Inertia::render('Facebook', [
+        //     'post'=>post::paginate(15)
+        // ]);
     }
 
     /**

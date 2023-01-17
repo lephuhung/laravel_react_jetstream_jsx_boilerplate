@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Elastic\Elasticsearch\ClientBuilder;
-
-use function GuzzleHttp\json_decode;
+use GuzzleHttp\Client as HttpClient;
 
 class SearchController extends Controller
 {
@@ -15,12 +14,14 @@ class SearchController extends Controller
         $host = env('DB_ELASTIC');
         $client = ClientBuilder::create()
             ->setHosts(["{$host}:9200"])
+            ->setHttpClient(new HttpClient(['verify' => false ]))
             ->build();
 
         // Info API
         $response = $client->info();
         echo $response['version']['number'];
         //return response()->json(['data' => json_encode($response)],200);
+        
     }
     public function ElasticSearchDataDoc(Request $request)
     {

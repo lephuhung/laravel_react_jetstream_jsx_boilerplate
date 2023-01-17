@@ -12,7 +12,7 @@ import {
     message,
     Space
 } from "antd";
-const Facebook = ({ post }) => {
+const Facebook = ( ) => {
     const { Text, Title } =  Typography;
     const { Option } = Select;
     const [postsearch, setpostsearch] = useState("");
@@ -94,12 +94,12 @@ const Facebook = ({ post }) => {
                             <Space style={{ marginBottom: 16 }}>
                                 <Title strong level={4}>Danh sách bài viết gần đây</Title>
                             </Space>
-                            <Table
+                            {/* <Table
                                 columns={columns}
                                 dataSource={post.data}
                                 rowkey='id_fb_post'
                                 bordered
-                            />
+                            /> */}
                         </div>
                     </div>
                 </div>

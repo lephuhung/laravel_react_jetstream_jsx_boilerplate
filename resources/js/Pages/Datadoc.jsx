@@ -14,8 +14,7 @@ import {
     Tag
 } from "antd";
 import axios from "axios";
-import { UserAddOutlined } from "@ant-design/icons";
-import _ from "lodash";
+import { Link } from '@inertiajs/inertia-react'
 const tags = ["thông tin", "giải trí", "thời sự", "thời tiết", "sự kiện"];
 const columns = [
     {
@@ -66,11 +65,10 @@ const columns = [
 const Dashboard = ({ datadoc }) => {
     const timeoutRef = useRef(null);
     const { Option } = Select;
-    const { Text, Title, Link } = Typography;
+    const { Text, Title } = Typography;
     const [options, setOptions] = useState([]);
     const [postsearch, setpostsearch] = useState("");
     const [search, setsearch] = useState([]);
-    const [time, settime] = useState(0);
     const [fetchdata, setfetchdata] = useState({
         loading: false,
         data: [],
@@ -132,11 +130,13 @@ const Dashboard = ({ datadoc }) => {
                                 offset={8}
                                 style={{ display: "flex", justify: "center" }}
                             >
+
                                 <AutoComplete
                                     value={postsearch}
-                                    style={{ width: 400, borderColor: "black" }}
+                                    style={{ width: 400 }}
                                     placeholder="Nhâp từ khoá cần tìm kiếm"
                                     onChange={(e) => setpostsearch(e)}
+                                    allowClear={true}
                                 >
                                     {search.map((item, index) => {
                                         return (
@@ -156,7 +156,7 @@ const Dashboard = ({ datadoc }) => {
                                 columns={columns}
                                 rowKey="article_id"
                                 bordered
-                                pagination={{ pageSize: 15, total: fetchdata.total }}
+                                pagination={{ pageSize: 15, total: fetchdata.total, itemRender: (current, type, originalElement) => { if (type == 'page') {return <Link href={`?page=${current}`}>{current}</Link>} else return originalElement } }}
                                 onChange={({ current, pageSize, total }) => fetchdatarequest(current, pageSize, total)}
                                 loading={fetchdata.loading}
                             />
@@ -168,5 +168,6 @@ const Dashboard = ({ datadoc }) => {
         </AppLayout>
     );
 };
+
 
 export default Dashboard;
